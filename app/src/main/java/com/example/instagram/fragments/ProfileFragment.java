@@ -1,5 +1,6 @@
 package com.example.instagram.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,7 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.instagram.LoginActivity;
 import com.example.instagram.R;
+import com.parse.ParseUser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,6 +40,19 @@ public class ProfileFragment extends Fragment {
 
         btnLogOut = view.findViewById(R.id.btnLogOut);
 
+        btnLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ParseUser.logOut();
+
+                // ParseUser currentUser = ParseUser.getCurrentUser();
+
+                Intent i = new Intent(getActivity(), LoginActivity.class);
+                startActivity(i);
+
+                getActivity().finish();
+            }
+        });
 
     }
 }
