@@ -28,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        // TODO -- Remove comments after user can logout.
 //        if (ParseUser.getCurrentUser() != null) {
 //            goMainActivity();
 //        }
