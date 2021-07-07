@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.instagram.DetailsActivity;
+import com.example.instagram.EndlessRecyclerViewScrollListener;
 import com.example.instagram.Post;
 import com.example.instagram.PostsAdapter;
 import com.example.instagram.R;
@@ -35,12 +36,19 @@ public class HomeFragment extends Fragment {
 
     public static final String KEY_POST = "post";
 
+    // Keeps track of the limit of queries
+    private int limit = 0;
+    // Set to 2 to test endless scrolling
+    private int initLimit = 2;
+
     private RecyclerView rvPosts;
 
     protected PostsAdapter adapter;
     protected List<Post> allPosts;
 
     private SwipeRefreshLayout swipeContainer;
+    
+    private EndlessRecyclerViewScrollListener scrollListener;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -94,19 +102,33 @@ public class HomeFragment extends Fragment {
         // Set adapter on Recycler View
         rvPosts.setAdapter(adapter);
         // Set layout manager on the recycler view
-        rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        rvPosts.setLayoutManager(linearLayoutManager);
+        
+        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                loadNextData(page);
+            }
+        };
+        
+        rvPosts.addOnScrollListener(scrollListener);
         // Query posts from Parstagram
         queryPosts();
 
     }
 
-    private void queryPostsUpdate() {
+    private void loadNextData(int page) {
         // specify what type of data we want to query - Post.class
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         // include data referred by user key
         query.include(Post.KEY_USER);
+        // Skip already loaded posts
+        Log.i(TAG, "Limit: " + limit);
+        query.setSkip(limit);
         // limit query to latest 20 items
-        query.setLimit(20);
+        query.setLimit(initLimit);
         // order posts by creation date (newest first)
         query.addDescendingOrder("createdAt");
         // start an asynchronous call for posts
@@ -118,7 +140,10 @@ public class HomeFragment extends Fragment {
                     Log.e(TAG, "Issue with getting posts", e);
                     return;
                 }
-                adapter.clear();
+
+                Log.i(TAG, "LoadNextData");
+                // Updates the limit
+                limit = limit + posts.size();
 
                 // for debugging purposes let's print every post description to logcat
                 for (Post post : posts) {
@@ -133,13 +158,13 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void queryPosts() {
+    private void queryPostsUpdate() {
         // specify what type of data we want to query - Post.class
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         // include data referred by user key
         query.include(Post.KEY_USER);
         // limit query to latest 20 items
-        query.setLimit(20);
+        query.setLimit(initLimit);
         // order posts by creation date (newest first)
         query.addDescendingOrder("createdAt");
         // start an asynchronous call for posts
@@ -151,6 +176,47 @@ public class HomeFragment extends Fragment {
                     Log.e(TAG, "Issue with getting posts", e);
                     return;
                 }
+                adapter.clear();
+
+                // updates the limit
+                limit = posts.size();
+
+                // for debugging purposes let's print every post description to logcat
+                for (Post post : posts) {
+                    Log.i(TAG, "Post: " + post.getDescription() + ", username: " + post.getUser().getUsername());
+                }
+
+                // save received posts to list and notify adapter of new data
+                adapter.addAll(posts);
+                // Refreshed finished
+                swipeContainer.setRefreshing(false);
+                // Reset scrollListener
+                scrollListener.resetState();
+            }
+        });
+    }
+
+    private void queryPosts() {
+        // specify what type of data we want to query - Post.class
+        ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
+        // include data referred by user key
+        query.include(Post.KEY_USER);
+        // limit query to latest 20 items
+        query.setLimit(initLimit);
+        // order posts by creation date (newest first)
+        query.addDescendingOrder("createdAt");
+        // start an asynchronous call for posts
+        query.findInBackground(new FindCallback<Post>() {
+            @Override
+            public void done(List<Post> posts, com.parse.ParseException e) {
+                // check for errors
+                if (e != null) {
+                    Log.e(TAG, "Issue with getting posts", e);
+                    return;
+                }
+
+                // updates the limit
+                limit = posts.size();
 
                 // for debugging purposes let's print every post description to logcat
                 for (Post post : posts) {

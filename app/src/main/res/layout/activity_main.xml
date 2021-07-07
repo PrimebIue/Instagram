@@ -12,16 +12,39 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bottomNavigation"
+        android:layout_below="@+id/toolbar"
         />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:contentInsetStart="0dp"
+        android:backgroundTint="@color/white"
+
+        >
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:src="@drawable/instagram_landing_logo"
+            app:tint="@color/black"
+            />
+    </androidx.appcompat.widget.Toolbar>
+
+
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_alignParentBottom="true"
-        app:menu="@menu/menu_bottom_navigation"
-        app:labelVisibilityMode="unlabeled"
+        android:visibility="visible"
         app:itemIconTint="@color/black"
-        />
+        app:labelVisibilityMode="unlabeled"
+        app:menu="@menu/menu_bottom_navigation" />
 
 </RelativeLayout>
