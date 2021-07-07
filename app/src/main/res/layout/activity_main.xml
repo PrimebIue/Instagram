@@ -23,16 +23,22 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:contentInsetStart="0dp"
-        android:backgroundTint="@color/white"
+        android:backgroundTint="@color/white">
 
-        >
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:src="@drawable/instagram_landing_logo"
             app:tint="@color/black"
             />
+
     </androidx.appcompat.widget.Toolbar>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.15dp"
+        android:background="@color/gray"
+        android:layout_below="@+id/toolbar"/>
 
 
 

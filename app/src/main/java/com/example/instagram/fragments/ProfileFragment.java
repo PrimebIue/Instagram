@@ -39,6 +39,7 @@ public class ProfileFragment extends HomeFragment {
     private TextView tvUsername;
     private TextView tvPostsNumber;
     private ImageView ivProfilePicture;
+    private TextView tvDescription;
 
     private Button btnLogOut;
 
@@ -61,12 +62,14 @@ public class ProfileFragment extends HomeFragment {
 
         tvUsername = view.findViewById(R.id.tvUsername);
         tvPostsNumber = view.findViewById(R.id.tvPostsNumber);
+        tvDescription = view.findViewById(R.id.tvDescription);
         ivProfilePicture = view.findViewById(R.id.ivProfilePicture);
         btnLogOut = view.findViewById(R.id.btnLogOut);
 
         ParseUser user = ParseUser.getCurrentUser();
 
         tvUsername.setText(user.getUsername());
+        tvDescription.setText(user.getString("userDescription"));
 
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
 
