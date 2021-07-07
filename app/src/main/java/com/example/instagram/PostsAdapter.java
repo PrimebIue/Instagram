@@ -19,10 +19,16 @@ import java.util.List;
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> {
 
+    public interface OnClickListener {
+        void onPostClicked(int position);
+    }
+
     private Context context;
     private List<Post> posts;
+    private OnClickListener clickListener;
 
-    public PostsAdapter(Context context, List<Post> posts) {
+    public PostsAdapter(Context context, List<Post> posts, OnClickListener clickListener) {
+        this.clickListener = clickListener;
         this.context = context;
         this.posts = posts;
     }
@@ -63,6 +69,11 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             tvDescription.setText(post.getDescription());
             tvUsername.setText(post.getUser().getUsername());
             ParseFile image = post.getImage();
+
+            ivImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) { clickListener.onPostClicked(getAdapterPosition()); }
+            });
             if (image != null) {
                 Glide.with(context)
                         .load(image.getUrl())

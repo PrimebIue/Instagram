@@ -1,5 +1,6 @@
 package com.example.instagram.fragments;
 
+import android.content.Intent;
 import android.net.ParseException;
 import android.os.Bundle;
 
@@ -15,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.instagram.DetailsActivity;
 import com.example.instagram.Post;
 import com.example.instagram.PostsAdapter;
 import com.example.instagram.R;
@@ -30,6 +32,8 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
     public static final String TAG = "HomeFragment";
+
+    public static final String KEY_POST = "post";
 
     private RecyclerView rvPosts;
 
@@ -54,9 +58,22 @@ public class HomeFragment extends Fragment {
 
         rvPosts = view.findViewById(R.id.rvPosts);
 
+        PostsAdapter.OnClickListener onClickListener = new PostsAdapter.OnClickListener() {
+            @Override
+            public void onPostClicked(int position) {
+                Log.i(TAG, "Click at post position: " + position);
+                // Create new activity intent
+                Intent i = new Intent(getContext(), DetailsActivity.class);
+                // Pass data
+                i.putExtra(KEY_POST, allPosts.get(position));
+                // Display Activity
+                startActivity(i);
+            }
+        };
+
         // Initialize the array that will hold posts and create a PostsAdapter
         allPosts = new ArrayList<>();
-        adapter = new PostsAdapter(getContext(), allPosts);
+        adapter = new PostsAdapter(getContext(), allPosts, onClickListener);
 
         // Lookup the swipe container view
         swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
