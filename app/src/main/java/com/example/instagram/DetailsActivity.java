@@ -17,11 +17,11 @@ public class DetailsActivity extends AppCompatActivity {
 
     private Post post;
 
-    TextView tvUsername;
-    TextView tvDescription;
-    TextView tvRelativeTime;
+    private TextView tvUsername;
+    private TextView tvDescription;
+    private TextView tvRelativeTime;
 
-    ImageView ivImage;
+    private ImageView ivImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -39,16 +39,16 @@ public class HomeFragment extends Fragment {
     // Keeps track of the limit of queries
     private int limit = 0;
     // Set to 2 to test endless scrolling
-    private int initLimit = 2;
+    protected final int initLimit = 2;
 
     private RecyclerView rvPosts;
 
     protected PostsAdapter adapter;
     protected List<Post> allPosts;
 
-    private SwipeRefreshLayout swipeContainer;
+    protected SwipeRefreshLayout swipeContainer;
     
-    private EndlessRecyclerViewScrollListener scrollListener;
+    protected EndlessRecyclerViewScrollListener scrollListener;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -116,10 +116,9 @@ public class HomeFragment extends Fragment {
         rvPosts.addOnScrollListener(scrollListener);
         // Query posts from Parstagram
         queryPosts();
-
     }
 
-    private void loadNextData(int page) {
+    protected void loadNextData(int page) {
         // specify what type of data we want to query - Post.class
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         // include data referred by user key
@@ -158,7 +157,7 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void queryPostsUpdate() {
+    protected void queryPostsUpdate() {
         // specify what type of data we want to query - Post.class
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         // include data referred by user key
@@ -196,7 +195,7 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void queryPosts() {
+    protected void queryPosts() {
         // specify what type of data we want to query - Post.class
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         // include data referred by user key
@@ -227,7 +226,6 @@ public class HomeFragment extends Fragment {
                 allPosts.addAll(posts);
                 adapter.notifyDataSetChanged();
             }
-
         });
     }
 }
