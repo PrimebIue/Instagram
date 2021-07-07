@@ -12,14 +12,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.instagram.LoginActivity;
 import com.example.instagram.Post;
 import com.example.instagram.PostsAdapter;
 import com.example.instagram.R;
 import com.parse.FindCallback;
+import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -29,6 +35,10 @@ import java.util.List;
 public class ProfileFragment extends HomeFragment {
 
     public static final String TAG = "ProfileFragment";
+
+    private TextView tvUsername;
+    private TextView tvPostsNumber;
+    private ImageView ivProfilePicture;
 
     private Button btnLogOut;
 
@@ -49,7 +59,26 @@ public class ProfileFragment extends HomeFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        tvUsername = view.findViewById(R.id.tvUsername);
+        tvPostsNumber = view.findViewById(R.id.tvPostsNumber);
+        ivProfilePicture = view.findViewById(R.id.ivProfilePicture);
         btnLogOut = view.findViewById(R.id.btnLogOut);
+
+        ParseUser user = ParseUser.getCurrentUser();
+
+        tvUsername.setText(user.getUsername());
+
+        ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
+
+        try {
+            tvPostsNumber.setText(String.valueOf(query.whereEqualTo(Post.KEY_USER, ParseUser.getCurrentUser()).count()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Glide.with(getContext())
+                .load(user.getParseFile("profileImage").getUrl())
+                .into(ivProfilePicture);
 
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,7 +93,6 @@ public class ProfileFragment extends HomeFragment {
                 getActivity().finish();
             }
         });
-
     }
 
     @Override
@@ -73,10 +101,9 @@ public class ProfileFragment extends HomeFragment {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         // include data referred by user key
         query.include(Post.KEY_USER);
-        // Only query for posts that have our user
-        query.whereEqualTo(Post.KEY_USER, ParseUser.getCurrentUser());
         // limit query to latest 20 items
         query.setLimit(initLimit);
+        query.whereEqualTo(Post.KEY_USER, ParseUser.getCurrentUser());
         // order posts by creation date (newest first)
         query.addDescendingOrder("createdAt");
         // start an asynchronous call for posts
@@ -114,6 +141,7 @@ public class ProfileFragment extends HomeFragment {
         query.whereEqualTo(Post.KEY_USER, ParseUser.getCurrentUser());
         // limit query to latest 20 items
         query.setLimit(initLimit);
+        query.whereEqualTo(Post.KEY_USER, ParseUser.getCurrentUser());
         // order posts by creation date (newest first)
         query.addDescendingOrder("createdAt");
         // start an asynchronous call for posts
@@ -151,13 +179,12 @@ public class ProfileFragment extends HomeFragment {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         // include data referred by user key
         query.include(Post.KEY_USER);
-        // Only query for posts that have our user
-        query.whereEqualTo(Post.KEY_USER, ParseUser.getCurrentUser());
         // Skip already loaded posts
         Log.i(TAG, "Limit: " + limit);
         query.setSkip(limit);
         // limit query to latest 20 items
         query.setLimit(initLimit);
+        query.whereEqualTo(Post.KEY_USER, ParseUser.getCurrentUser());
         // order posts by creation date (newest first)
         query.addDescendingOrder("createdAt");
         // start an asynchronous call for posts
