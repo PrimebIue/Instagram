@@ -74,18 +74,18 @@ public class EditProfileActivity extends AppCompatActivity {
                 String description = etDescription.getText().toString();
                 String username = etUsername.getText().toString();
                 if (description.isEmpty()) {
-                    Toast.makeText(EditProfileActivity.this, "Bio can't be empty.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditProfileActivity.this, "Bio can't be empty.", Toast.LENGTH_LONG).show();
                     return;
                 }
                 if (username.isEmpty()) {
-                    Toast.makeText(EditProfileActivity.this, "username can't be empty.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditProfileActivity.this, "username can't be empty.", Toast.LENGTH_LONG).show();
                     return;
                 }
                 if (username.length() < 5) {
-                    Toast.makeText(EditProfileActivity.this, "username can't be less than 5 characters", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditProfileActivity.this, "username can't be less than 5 characters", Toast.LENGTH_LONG).show();
                     return;
                 }
-
+                Log.i(TAG, "on btnSubmit click");
                 try {
                     saveProfileChanges(description, username, mMediaUri);
                 } catch (IOException e) {
@@ -96,7 +96,11 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private void saveProfileChanges(String description, String username, Uri mMediaUri) throws IOException {
+        Log.i(TAG, "Saving changes...");
         ParseUser user = ParseUser.getCurrentUser();
+
+        user.setUsername(username);
+        user.put("userDescription", description);
 
         if (mMediaUri != null) {
         // Convert URI to bytes for upload
@@ -107,8 +111,7 @@ public class EditProfileActivity extends AppCompatActivity {
         user.put("profileImage", file);
         }
 
-        user.setUsername(username);
-        user.put("userDescription", description);
+
 
         user.saveInBackground(new SaveCallback() {
             @Override
