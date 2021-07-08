@@ -19,7 +19,8 @@
         android:roundIcon="@mipmap/icon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Instagram">
-        <activity android:name=".DetailsActivity"></activity>
+        <activity android:name=".EditProfileActivity"></activity>
+        <activity android:name=".DetailsActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

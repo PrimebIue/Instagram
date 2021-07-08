@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.instagram.EditProfileActivity;
 import com.example.instagram.LoginActivity;
 import com.example.instagram.Post;
 import com.example.instagram.PostsAdapter;
@@ -36,11 +37,14 @@ public class ProfileFragment extends HomeFragment {
 
     public static final String TAG = "ProfileFragment";
 
+    public static final int EDIT_ACTIVITY_CODE = 20;
+
     private TextView tvUsername;
     private TextView tvPostsNumber;
     private ImageView ivProfilePicture;
     private TextView tvDescription;
 
+    private Button btnEditProfile;
     private Button btnLogOut;
 
     private int limit = 0;
@@ -65,6 +69,7 @@ public class ProfileFragment extends HomeFragment {
         tvDescription = view.findViewById(R.id.tvDescription);
         ivProfilePicture = view.findViewById(R.id.ivProfilePicture);
         btnLogOut = view.findViewById(R.id.btnLogOut);
+        btnEditProfile = view.findViewById(R.id.btnEditProfile);
 
         ParseUser user = ParseUser.getCurrentUser();
 
@@ -94,6 +99,14 @@ public class ProfileFragment extends HomeFragment {
                 startActivity(i);
 
                 getActivity().finish();
+            }
+        });
+
+        btnEditProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), EditProfileActivity.class);
+                startActivityForResult(i, EDIT_ACTIVITY_CODE);
             }
         });
     }
@@ -215,5 +228,15 @@ public class ProfileFragment extends HomeFragment {
                 swipeContainer.setRefreshing(false);
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        tvUsername.setText(ParseUser.getCurrentUser().getUsername());
+        tvDescription.setText(ParseUser.getCurrentUser().getString("userDescription"));
+        Glide.with(getContext())
+                .load(ParseUser.getCurrentUser().getParseFile("profileImage").getUrl())
+                .into(ivProfilePicture);
     }
 }
