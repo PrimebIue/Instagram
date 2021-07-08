@@ -98,14 +98,18 @@ public class EditProfileActivity extends AppCompatActivity {
     private void saveProfileChanges(String description, String username, Uri mMediaUri) throws IOException {
         ParseUser user = ParseUser.getCurrentUser();
 
+        if (mMediaUri != null) {
+        // Convert URI to bytes for upload
         InputStream iStream = getContentResolver().openInputStream(mMediaUri);
         byte[] fileBytes = getBytes(iStream);
 
         ParseFile file = new ParseFile(fileBytes);
+        user.put("profileImage", file);
+        }
 
         user.setUsername(username);
         user.put("userDescription", description);
-        user.put("profileImage", file);
+
         user.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
@@ -130,6 +134,7 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         }
     }
+
 
     public byte[] getBytes(InputStream inputStream) throws IOException {
         ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
