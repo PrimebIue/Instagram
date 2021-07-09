@@ -16,6 +16,7 @@ public class GridPostsAdapter extends BaseAdapter {
     private Context context;
     private List<Post> posts;
 
+
     public GridPostsAdapter(Context context, List<Post> posts) {
         this.context = context;
         this.posts = posts;

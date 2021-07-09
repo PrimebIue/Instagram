@@ -2,8 +2,11 @@ package com.example.instagram;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,6 +25,7 @@ import java.util.List;
 public class ProfileActivity extends AppCompatActivity {
 
     public static final String TAG = "ProfileActivity";
+    public static final String KEY_POST = "post";
 
     private ParseUser user;
 
@@ -74,6 +78,20 @@ public class ProfileActivity extends AppCompatActivity {
         adapter = new GridPostsAdapter(this, userPosts);
 
         gridView.setAdapter(adapter);
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Log.i(TAG, "Click at post position: " + position);
+                // Create new activity intent
+                Intent i = new Intent(ProfileActivity.this, DetailsActivity.class);
+                // Pass data
+                i.putExtra(KEY_POST, userPosts.get(position));
+                // Display Activity
+                startActivity(i);
+            }
+        });
 
         queryPosts();
     }
