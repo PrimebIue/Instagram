@@ -21,7 +21,8 @@
         android:layout_below="@id/ivProfilePicture"
         android:layout_centerHorizontal="true"
         android:text="Change Profile Photo"
-        android:textColor="@color/light_blue"/>
+        android:textColor="@color/light_blue"
+        android:backgroundTint="@color/white"/>
 
     <EditText
         android:id="@+id/etUsername"
