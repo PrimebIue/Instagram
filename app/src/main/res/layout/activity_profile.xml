@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProfileActivity">
+
+    <TextView
+        android:id="@+id/tvUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Test Profile Name"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        android:layout_marginBottom="10dp"
+        android:layout_alignLeft="@+id/tvDescription"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivProfilePicture"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        tools:src="@tools:sample/avatars"
+        android:layout_below="@id/tvUsername"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp" />
+
+    <TextView
+        android:id="@+id/tvPostsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/ivProfilePicture"
+        android:text="Posts"
+        android:layout_below="@+id/tvPostsNumber"
+        android:layout_marginStart="130dp"
+        android:layout_marginLeft="130dp"
+        android:textColor="@color/black"/>
+    <TextView
+        android:id="@+id/tvPostsNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvPostsText"
+        android:layout_alignRight="@+id/tvPostsText"
+        android:textAlignment="center"
+        android:layout_below="@id/tvUsername"
+        android:text="10"
+        android:layout_marginTop="18dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/tvDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivProfilePicture"
+        android:layout_alignLeft="@+id/ivProfilePicture"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:text="Test Description"
+        android:textColor="@color/black"/>
+
+    <GridView
+        android:id="@+id/gvPosts"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tvDescription"
+        android:columnWidth="120dp"
+        android:minHeight="120dp"
+        android:numColumns="auto_fit"
+        android:gravity="center"/>
+
+</RelativeLayout>

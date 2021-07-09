@@ -118,7 +118,7 @@ public class ProfileFragment extends HomeFragment {
         // include data referred by user key
         query.include(Post.KEY_USER);
         // limit query to latest 20 items
-        query.setLimit(initLimit);
+        query.setLimit(INIT_LIMIT);
         query.whereEqualTo(Post.KEY_USER, ParseUser.getCurrentUser());
         // order posts by creation date (newest first)
         query.addDescendingOrder("createdAt");
@@ -156,7 +156,7 @@ public class ProfileFragment extends HomeFragment {
         // Only query for posts that have our user
         query.whereEqualTo(Post.KEY_USER, ParseUser.getCurrentUser());
         // limit query to latest 20 items
-        query.setLimit(initLimit);
+        query.setLimit(INIT_LIMIT);
         query.whereEqualTo(Post.KEY_USER, ParseUser.getCurrentUser());
         // order posts by creation date (newest first)
         query.addDescendingOrder("createdAt");
@@ -199,7 +199,7 @@ public class ProfileFragment extends HomeFragment {
         Log.i(TAG, "Limit: " + limit);
         query.setSkip(limit);
         // limit query to latest 20 items
-        query.setLimit(initLimit);
+        query.setLimit(INIT_LIMIT);
         query.whereEqualTo(Post.KEY_USER, ParseUser.getCurrentUser());
         // order posts by creation date (newest first)
         query.addDescendingOrder("createdAt");

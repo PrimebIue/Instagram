@@ -20,6 +20,7 @@ import com.example.instagram.DetailsActivity;
 import com.example.instagram.EndlessRecyclerViewScrollListener;
 import com.example.instagram.Post;
 import com.example.instagram.PostsAdapter;
+import com.example.instagram.ProfileActivity;
 import com.example.instagram.R;
 import com.parse.FindCallback;
 import com.parse.ParseQuery;
@@ -35,11 +36,13 @@ public class HomeFragment extends Fragment {
     public static final String TAG = "HomeFragment";
 
     public static final String KEY_POST = "post";
+    public static final String KEY_USER = "user";
+
+    protected static int INIT_LIMIT = 2;
 
     // Keeps track of the limit of queries
     private int limit = 0;
     // Set to 2 to test endless scrolling
-    protected final int initLimit = 2;
 
     private RecyclerView rvPosts;
 
@@ -74,6 +77,17 @@ public class HomeFragment extends Fragment {
                 Intent i = new Intent(getContext(), DetailsActivity.class);
                 // Pass data
                 i.putExtra(KEY_POST, allPosts.get(position));
+                // Display Activity
+                startActivity(i);
+            }
+
+            @Override
+            public void onProfileClicked(int position) {
+                Log.i(TAG, "Click at profile on post position: " + position);
+                // Create new activity intent
+                Intent i = new Intent(getContext(), ProfileActivity.class);
+                // Pass data
+                i.putExtra(KEY_USER, allPosts.get(position).getUser());
                 // Display Activity
                 startActivity(i);
             }
@@ -127,7 +141,7 @@ public class HomeFragment extends Fragment {
         Log.i(TAG, "Limit: " + limit);
         query.setSkip(limit);
         // limit query to latest 20 items
-        query.setLimit(initLimit);
+        query.setLimit(INIT_LIMIT);
         // order posts by creation date (newest first)
         query.addDescendingOrder("createdAt");
         // start an asynchronous call for posts
@@ -163,7 +177,7 @@ public class HomeFragment extends Fragment {
         // include data referred by user key
         query.include(Post.KEY_USER);
         // limit query to latest 20 items
-        query.setLimit(initLimit);
+        query.setLimit(INIT_LIMIT);
         // order posts by creation date (newest first)
         query.addDescendingOrder("createdAt");
         // start an asynchronous call for posts
@@ -201,7 +215,7 @@ public class HomeFragment extends Fragment {
         // include data referred by user key
         query.include(Post.KEY_USER);
         // limit query to latest 20 items
-        query.setLimit(initLimit);
+        query.setLimit(INIT_LIMIT);
         // order posts by creation date (newest first)
         query.addDescendingOrder("createdAt");
         // start an asynchronous call for posts
