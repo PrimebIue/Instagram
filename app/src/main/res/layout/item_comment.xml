@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivProfilePicture"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        tools:src="@tools:sample/avatars"
+        android:layout_margin="5dp"/>
+
+    <TextView
+        android:id="@+id/tvContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/tvUsername"
+        android:layout_alignTop="@+id/ivProfilePicture"
+        android:text="test comment"
+        android:textSize="12dp"
+        />
+
+    <TextView
+        android:id="@+id/tvUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/ivProfilePicture"
+        android:text="ro_barrag"
+        android:layout_alignTop="@+id/ivProfilePicture"
+        android:textSize="12dp"
+        android:textStyle="bold"
+        android:textColor="@color/black" android:layout_marginEnd="5dp"/>
+
+    <TextView
+        android:id="@+id/tvRelativeTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvContent"
+        android:text="4h"
+        android:textSize="10dp"
+        android:layout_toRightOf="@+id/ivProfilePicture"/>
+
+
+
+</RelativeLayout>

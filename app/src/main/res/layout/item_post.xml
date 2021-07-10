@@ -37,11 +37,78 @@
         android:scaleType="centerCrop"
         tools:srcCompat="@tools:sample/avatars" />
 
+    <ImageView
+        android:id="@+id/ivIconLike"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/ufi_heart"
+        android:layout_below="@+id/ivImage"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="5dp"/>
+
+
+    <ImageView
+        android:id="@+id/ivIconComment"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/ufi_comment"
+        android:layout_below="@+id/ivImage"
+        android:layout_toRightOf="@id/ivIconLike"
+        android:layout_marginStart="10dp"
+        android:layout_alignTop="@+id/ivIconLike"/>
+
+    <TextView
+        android:id="@+id/tvUsernameDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        tools:text="rahul"
+        android:textSize="14dp"
+        android:layout_below="@+id/ivIconLike"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:textStyle="bold"
+        />
+
     <TextView
         android:id="@+id/tvDescription"
-        android:layout_below="@id/ivImage"
+        android:layout_below="@id/ivIconComment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        tools:text="trying to look hipster" />
+
+        android:textSize="14dp"
+        android:layout_toRightOf="@id/tvUsernameDescription"
+        tools:text="trying to look hipster"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/tvViewComments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvDescription"
+        android:textSize="14dp"
+        android:text="View all comments"
+        android:layout_marginStart="5dp"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivProfilePictureCurrUser"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        tools:src="@tools:sample/avatars"
+        android:layout_margin="5dp"
+        android:layout_below="@id/tvViewComments"/>
+
+    <TextView
+        android:id="@+id/tvAddComment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/ivProfilePictureCurrUser"
+        android:text="Add a comment..."
+        android:layout_alignTop="@+id/ivProfilePictureCurrUser"
+        android:layout_alignBottom="@+id/ivProfilePictureCurrUser"
+        android:gravity="center"
+        android:clickable="true"/>
+
+
 </RelativeLayout>

@@ -2,6 +2,7 @@ package com.example.instagram.Application;
 
 import android.app.Application;
 
+import com.example.instagram.Comment;
 import com.example.instagram.Post;
 import com.example.instagram.R;
 import com.parse.Parse;
@@ -18,6 +19,7 @@ public class ParseApplication extends Application {
 
         // Register your parse models
         ParseObject.registerSubclass(Post.class);
+        ParseObject.registerSubclass(Comment.class);
 
         // Register your parse models
         // TODO -- ParseObject.registerSubclass(Post.class);

@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.instagram.CommentsActivity;
 import com.example.instagram.DetailsActivity;
 import com.example.instagram.EndlessRecyclerViewScrollListener;
 import com.example.instagram.Post;
@@ -88,6 +89,18 @@ public class HomeFragment extends Fragment {
                 Intent i = new Intent(getContext(), ProfileActivity.class);
                 // Pass data
                 i.putExtra(KEY_USER, allPosts.get(position).getUser());
+                // Display Activity
+                startActivity(i);
+            }
+
+            @Override
+            public void onAddCommentClicked(int position) {
+                Log.i(TAG, "Click add comment on post position: " + position);
+
+                Intent i = new Intent(getContext(), CommentsActivity.class);
+                // Pass data
+                i.putExtra(KEY_USER, allPosts.get(position).getUser());
+                i.putExtra(KEY_POST, allPosts.get(position));
                 // Display Activity
                 startActivity(i);
             }
