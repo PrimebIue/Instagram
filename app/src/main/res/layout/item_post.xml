@@ -82,22 +82,13 @@
         tools:text="trying to look hipster"
         android:textColor="@color/black"/>
 
-    <TextView
-        android:id="@+id/tvViewComments"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tvDescription"
-        android:textSize="14dp"
-        android:text="View all comments"
-        android:layout_marginStart="5dp"/>
-
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/ivProfilePictureCurrUser"
         android:layout_width="26dp"
         android:layout_height="26dp"
         tools:src="@tools:sample/avatars"
         android:layout_margin="5dp"
-        android:layout_below="@id/tvViewComments"/>
+        android:layout_below="@id/tvDescription"/>
 
     <TextView
         android:id="@+id/tvAddComment"
