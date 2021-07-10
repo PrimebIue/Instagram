@@ -100,6 +100,15 @@
         android:layout_alignBottom="@+id/ivProfilePictureCurrUser"
         android:gravity="center"
         android:clickable="true"/>
+    <TextView
+        android:id="@+id/tvRelativeTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="4h"
+        android:layout_alignTop="@+id/tvUsername"
+        android:gravity="center"
+        android:layout_alignBottom="@+id/tvUsername"/>
 
 
 </RelativeLayout>

@@ -67,6 +67,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private ImageView ivProfilePictureCurrUser;
         private TextView tvAddComment;
         private ImageView ivIconComment;
+        private TextView tvRelativeTime;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -78,6 +79,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             ivProfilePictureCurrUser = itemView.findViewById(R.id.ivProfilePictureCurrUser);
             tvAddComment = itemView.findViewById(R.id.tvAddComment);
             ivIconComment = itemView.findViewById(R.id.ivIconComment);
+            tvRelativeTime = itemView.findViewById(R.id.tvRelativeTime);
         }
 
         public void bind(Post post) {
@@ -85,6 +87,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             tvDescription.setText(post.getDescription());
             tvUsername.setText(post.getUser().getUsername());
             tvUsernameDescription.setText(post.getUser().getUsername());
+            tvRelativeTime.setText(Post.calculateTimeAgo(post.getCreatedAt()));
             ParseFile image = post.getImage();
 
             Glide.with(context)

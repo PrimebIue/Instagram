@@ -1,6 +1,7 @@
 package com.example.instagram;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +21,8 @@ public class DetailsActivity extends AppCompatActivity {
     private TextView tvUsername;
     private TextView tvDescription;
     private TextView tvRelativeTime;
+
+    private CommentsActivity mComments;
 
     private ImageView ivImage;
 
