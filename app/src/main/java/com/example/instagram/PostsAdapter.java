@@ -1,6 +1,8 @@
 package com.example.instagram;
 
 import android.content.Context;
+import android.media.Image;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,6 +66,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private ImageView ivProfilePicture;
         private ImageView ivProfilePictureCurrUser;
         private TextView tvAddComment;
+        private ImageView ivIconComment;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -74,6 +77,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             ivProfilePicture = itemView.findViewById(R.id.ivProfilePicture);
             ivProfilePictureCurrUser = itemView.findViewById(R.id.ivProfilePictureCurrUser);
             tvAddComment = itemView.findViewById(R.id.tvAddComment);
+            ivIconComment = itemView.findViewById(R.id.ivIconComment);
         }
 
         public void bind(Post post) {
@@ -100,6 +104,10 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                 public void onClick(View v) { clickListener.onPostClicked(getAdapterPosition()); }
             });
             tvAddComment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) { clickListener.onAddCommentClicked(getAdapterPosition()); }
+            });
+            ivIconComment.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) { clickListener.onAddCommentClicked(getAdapterPosition()); }
             });
