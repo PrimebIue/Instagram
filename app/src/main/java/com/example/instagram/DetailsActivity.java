@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.parse.ParseUser;
 
 import org.w3c.dom.Text;
 
@@ -25,6 +26,8 @@ public class DetailsActivity extends AppCompatActivity {
     private CommentsActivity mComments;
 
     private ImageView ivImage;
+    private ImageView ivProfilePicture;
+    private ImageView ivProfilePictureCurrUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,8 @@ public class DetailsActivity extends AppCompatActivity {
         tvDescription = findViewById(R.id.tvDescription);
         tvRelativeTime = findViewById(R.id.tvRelativeTime);
         ivImage = findViewById(R.id.ivImage);
+        ivProfilePicture = findViewById(R.id.ivProfilePicture);
+        ivProfilePictureCurrUser = findViewById(R.id.ivProfilePictureCurrUser);
 
 
         tvRelativeTime.setText(Post.calculateTimeAgo(post.getCreatedAt()));
@@ -46,6 +51,14 @@ public class DetailsActivity extends AppCompatActivity {
         Glide.with(this)
                 .load(post.getImage().getUrl())
                 .into(ivImage);
+
+        Glide.with(this)
+                .load(post.getUser().getParseFile("profileImage").getUrl())
+                .into(ivProfilePicture);
+
+        Glide.with(this)
+                .load(ParseUser.getCurrentUser().getParseFile("profileImage").getUrl())
+                .into(ivProfilePictureCurrUser);
     }
 
 
